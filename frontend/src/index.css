@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #ffffff;
+  --sidebar-bg: #f8f8f8;
+  --accent-color: #3f3f46;
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --border-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+}
+
+/* Soft Premium Mesh Background (Subtle White/Gray Waves) */
+.mesh-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(240, 240, 255, 0.7) 0, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(255, 245, 245, 0.7) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(245, 255, 255, 0.7) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(240, 240, 250, 0.7) 0, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(250, 250, 255, 0.7) 0, transparent 50%);
+  filter: blur(140px);
+  animation: mesh-move 10s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-move {
+  0% {
+    transform: scale(1) translate(0%, 0%);
+  }
+
+  50% {
+    transform: scale(1.1) translate(2%, 2%);
+  }
+
+  100% {
+    transform: scale(1.05) translate(-1%, 3%);
+  }
+}
+
+.premium-border {
+  border: 1px solid var(--border-color);
+}
+
+.glass-surface {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Table Pro */
+.custom-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: white;
+}
+
+.custom-table th {
+  background: #fcfcfd;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.custom-table tr:hover {
+  background: #f9fafb;
+}
+
+/* Search Highlighting */
+.search-highlight {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 0 2px;
+  font-weight: bold;
+}
