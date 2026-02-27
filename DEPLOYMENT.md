@@ -7,6 +7,21 @@
 - Monday.com API token
 - Groq API key
 
+## 🚨 FIXING 404 ERRORS - CRITICAL
+
+If you're getting 404 errors after deployment, this is due to SPA routing issues. The project is now configured to fix this automatically, but follow these steps to ensure proper deployment:
+
+### Step 1: Ensure Proper Configuration
+
+The project includes these critical files for SPA routing:
+- ✅ **vercel.json** - Main Vercel configuration with SPA routing
+- ✅ **frontend/public/_redirects** - Backup routing fallback  
+- ✅ **Optimized build configuration** in vite.config.ts
+
+### Step 2: Deploy with Correct Settings
+
+**IMPORTANT:** Always deploy from the **project root**, not the frontend folder.
+
 ### 1. Environment Variables Setup
 
 Before deploying, you need to set up environment variables in Vercel:
@@ -66,10 +81,31 @@ The project is already configured with:
 
 ### 5. Troubleshooting Common Issues
 
-#### 404 Errors:
-- Make sure `vercel.json` is in the project root
-- Verify the routes configuration in `vercel.json`
-- Check that build outputs to correct directory
+#### 404 Errors (MOST COMMON):
+**If you see "404: NOT_FOUND" after deployment:**
+
+1. **Immediate Fix - Redeploy:**
+   ```bash
+   # From project root directory
+   vercel --prod
+   ```
+
+2. **Check Vercel Configuration:**
+   - Ensure `vercel.json` is in the **project root** (not in frontend folder)
+   - Verify `outputDirectory` is set to `frontend/dist`
+   - Confirm routes configuration includes `"dest": "/index.html"`
+
+3. **Manual Fix in Vercel Dashboard:**
+   - Go to Project Settings → Functions
+   - Ensure "Output Directory" is set to `frontend/dist`
+   - Check "Build Command" is `cd frontend && npm ci && npm run build`
+   
+4. **Force Clean Deploy:**
+   ```bash
+   # Delete .vercel folder and redeploy
+   rm -rf .vercel
+   vercel --prod
+   ```
 
 #### Environment Variables Not Working:
 - Ensure variables start with `VITE_`
@@ -77,9 +113,10 @@ The project is already configured with:
 - Check Vercel dashboard for variable presence
 
 #### Build Failures:
-- Check Node.js version compatibility
+- Check Node.js version compatibility (use Node 18+)
 - Verify all dependencies are in package.json
 - Review build logs in Vercel dashboard
+- Try local build first: `cd frontend && npm run build`
 
 ### 6. Project Structure for Vercel
 
@@ -104,12 +141,15 @@ The project includes:
 
 ### 8. Deployment Checklist
 
+- [ ] **CRITICAL:** Deploy from project root directory (not frontend folder)
+- [ ] Verify `vercel.json` exists in project root
 - [ ] Environment variables added to Vercel
 - [ ] Monday.com API token is valid
 - [ ] Groq API key is valid  
-- [ ] Project builds locally without errors
-- [ ] `vercel.json` is in project root
-- [ ] All dependencies are installed
+- [ ] Project builds locally without errors: `cd frontend && npm run build`
+- [ ] Test build output: check `frontend/dist/index.html` exists
+- [ ] `_redirects` file is in `frontend/dist/` after build
+- [ ] **After deployment:** Test direct URL access (not just home page)
 
 ### 9. Live URL
 
